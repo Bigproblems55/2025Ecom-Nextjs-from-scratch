@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { Inter} from "next/font/google";
 import "@/assets/styles/globals.css";
-// import { cn } from "@/lib/utils";
-import { APP_NAME } from '@/lib/constants'
-// const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
-
-// const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
+import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants'
+ 
 
 const inter = Inter({subsets: ['latin']});
-
+// This template names the homepage's title with metadata on page and whats in the template
 export const metadata: Metadata = {
-  title: `${APP_NAME}`,
-  description: "A mondern ecommerce platform built for shopping with Next.js technology!",
+  title: {
+    template: `%s | Online Extrusion`,
+    default: APP_NAME
+  },
+  description: APP_DESCRIPTION,
+  metadataBase: new URL(SERVER_URL),
 };
 
 export default function RootLayout({ children }: Readonly<{
