@@ -19,11 +19,22 @@ const Header = () => {
                         </span>
                 </Link>
             </div>
-            <div className='space-x-2'>
-                <Button asChild variant='ghost'>
-                    <Link href='/cart'>
-                        <ShoppingCart />
-                    </Link>
+            <div className='flex gap-2 items-center space-x-2'>
+                <Button
+                nativeButton={false}
+                    variant="ghost"
+                    size="lg"
+                    render={<Link href="/cart" aria-label="Shopping cart" />}
+                    >
+                    <ShoppingCart /> Cart
+                </Button>
+                <Button
+                nativeButton={false}
+                    variant="ghost"
+                    size="lg"
+                    render={<Link href="/sign-in" aria-label="Sign In" />}
+                    >
+                    <UserIcon /> Sign In
                 </Button>
             </div>
         </div>
