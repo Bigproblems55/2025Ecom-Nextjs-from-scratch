@@ -7,6 +7,7 @@ import {DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuGroup,
     DropdownMenuLabel,
+    DropdownMenuCheckboxItem,
     DropdownMenuSeparator,
     DropdownMenuItem,
     DropdownMenuContent,
@@ -39,18 +40,18 @@ const ModeToggle = () => {
             <DropdownMenuLabel>Appearance</DropdownMenuLabel>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuCheckboxItem checked={theme === "light"} onClick={() => setTheme("light")}>
             <SunIcon />
             Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem onClick={() => setTheme("dark")}>
             <MoonIcon />
             Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem onClick={() => setTheme("system")}>
             <SunMoon />
             System
-        </DropdownMenuItem>
+        </DropdownMenuCheckboxItem>
         </DropdownMenuContent>
     </DropdownMenu> ;
 }
