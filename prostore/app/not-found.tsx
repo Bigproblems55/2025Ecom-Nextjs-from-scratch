@@ -7,7 +7,9 @@ const NotFoundPage = () => {
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Image src="/images/logo.svg" width={48} height={48} 
       alt={`${APP_NAME} logo`} priority={true}/>
-      <div p-6  w-1-3 rounded-lg shadow-md text-center>
+      <div className="w-full max-w-md rounded-lg 
+      border bg-card p-6 
+      text-center shadow-md">
         <h1 className="text-3xl font-bold mb-4">Not Found</h1>
         <p className="text-destructive">Could Not find requested resource</p>
         <Button nativeButton={false} onClick={() => (window.location.href = '/')} 
