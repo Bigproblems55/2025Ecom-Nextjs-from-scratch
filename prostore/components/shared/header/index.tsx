@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';
 import { APP_NAME } from '@/lib/constants';
-
+import ModeToggle from './mode-toggle';
 const Header = () => {
     return  <header className='w-full border-b' >
         <div className='wrapper flex-between'>
@@ -20,6 +20,7 @@ const Header = () => {
                 </Link>
             </div>
             <div className='flex gap-2 items-center space-x-2'>
+                <ModeToggle />
                 <Button
                 nativeButton={false}
                     variant="ghost"
@@ -30,7 +31,6 @@ const Header = () => {
                 </Button>
                 <Button
                 nativeButton={false}
-                    variant="ghost"
                     size="lg"
                     render={<Link href="/sign-in" aria-label="Sign In" />}
                     >
