@@ -7,9 +7,10 @@ async function main() {
     const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
 });
+   
     await prisma.product.deleteMany();
     await prisma.product.createMany({
-        data: sampleData.products,
+      data: sampleData.products,
     });
     
     console.log("Database seeded successfully.");

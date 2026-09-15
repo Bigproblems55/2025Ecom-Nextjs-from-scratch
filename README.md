@@ -5,7 +5,8 @@ git@github.com:bradtraversy/prostore.git
 Teachers Demo: 
 https://prostore-one.verel.app/z/h 
 sfc is a fast way to get a component started in typscript easy with visual studio intellesense.
-
+Using Neon with inside of Vercel
+-------------------------------------------------------
 Set up this Neon project in the current working directory.
 
 1. `npm i -g neon@latest && neon login`
@@ -58,3 +59,7 @@ To run your migration and sync your schema with your database run ...
   npx prisma migrate dev --name init
 To run the prisma studio that shows everything in your database run ...
   npx prisma studio
+WIll be using Next.js server actions instead of api routes beause it is simplier and its a single monothythical application.
+To seed into the database you must run ....
+  tsc /db/seed.ts
+
