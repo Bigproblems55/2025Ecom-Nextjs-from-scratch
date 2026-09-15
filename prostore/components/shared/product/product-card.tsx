@@ -4,7 +4,9 @@ import {
   Card,
   CardHeader,
   CardContent,
+  
 } from "@/components/ui/card";   
+import ProductPrice from "@/components/shared/product/product-price";
 const ProductCard = ({product} :{product: any;}) => {
     return ( <Card className="w-full max-w-sm">
             <CardHeader className="p-0 items-center">
@@ -28,7 +30,9 @@ const ProductCard = ({product} :{product: any;}) => {
                     <div className="flex-between gap-4">
                         <p className="">{product.rating} Stars</p>
                         {product.stock > 0 ? (
-                        <p className="font-bold">{product.price}</p>
+                        <ProductPrice 
+                        value={Number(product.price)} 
+                        />
                         ): (
                             <p className="text-destructive">Out of Stock</p>
                         )
