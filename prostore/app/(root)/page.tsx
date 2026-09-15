@@ -16,7 +16,7 @@ const Homepage = async () =>{
     <ProductList 
     data={latestProducts} 
     title="Newest Arrivals"
-    limit={4}
+    limit={6}
       />
     
   </>
