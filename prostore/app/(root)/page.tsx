@@ -6,7 +6,7 @@ export const metadata = {
   // This will change the page title
   title: 'Home',
 }
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 const Homepage = async () =>{
   const latestProducts = await getLatestProducts();
