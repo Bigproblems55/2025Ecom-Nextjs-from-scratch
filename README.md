@@ -5,6 +5,7 @@ If deployment does not work try adding
   npm install --legacy-peer-deps as install command
 If Prisma or native packages fail later, approve them with 
   npm install-scripts approve @prisma/engines bufferutil prisma unrs-resolver
+An environment file can be configured but terminal environment injection is disabled. Enable "python.terminal.useEnvFile" to use environment variables from .env files in terminals. 
 Teachers Edition: 
 git@github.com:bradtraversy/prostore.git
 Teachers Demo: 
