@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter} from "next/font/google";
+import  Inter from "next/font/local";
 import "@/assets/styles/globals.css";
 import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants'
 import { ThemeProvider } from 'next-themes';
 
-const inter = Inter({subsets: ['latin']});
+// const inter = Inter({subsets: ['latin']});
+
+const inter = Inter({
+  src: "../public/fonts/Inter_28pt-Regular.ttf",
+  display: "swap",
+});
 // This template names the homepage's title with metadata on page and whats in the template
 export const metadata: Metadata = {
   title: {
@@ -20,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
