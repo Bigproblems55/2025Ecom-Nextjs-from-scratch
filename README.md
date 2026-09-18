@@ -1,6 +1,6 @@
 This is how to build a eccomerce website from scratch with Next.js
 Deployed on -- 
-  https://2025-ecom-nextjs-from-scratch-c2nrfxs88-nick-lacaprias-projects.vercel.app/
+  https://2025-ecom-nextjs-from-scratch-lu60on1wl-nick-lacaprias-projects.vercel.app/
 If deployment does not work try adding npm install --legacy-peer-deps as instll command
 Teachers Edition: 
 git@github.com:bradtraversy/prostore.git
@@ -55,14 +55,16 @@ g2MKFnvdSpXF814hwZo+Nlsbrm3a1OWIRNDm9/VK2s1LNOVOATd3G1A06cmC0P1G
 
 Prisma Schema Model
 Prisma.io/docs/orm/prisma-schema/data-model/models
+Each time you add to or change the prisma schema run these
 To Generate the schema run...
   npx prisma generate
 To run your migration and sync your schema with your database run ...
-  npx prisma migrate dev --name init
+  npx prisma migrate dev --name init_whatever_name_you_want
 To run the prisma studio that shows everything in your database run ...
   npx prisma studio
 WIll be using Next.js server actions instead of api routes beause it is simplier and its a single monothythical application.
 To seed into the database you must run ....
   tsc /db/seed.ts
 Using Zod for runtime validations and validation schemas which is great for forms npm i zod
-
+You can pick your models from the database section here when using Prisma
+  authjs.dev/getting-started/adapters/prisma
