@@ -1,7 +1,10 @@
 This is how to build a eccomerce website from scratch with Next.js
 Deployed on -- 
   https://2025-ecom-nextjs-from-scratch-lu60on1wl-nick-lacaprias-projects.vercel.app/
-If deployment does not work try adding npm install --legacy-peer-deps as instll command
+If deployment does not work try adding 
+  npm install --legacy-peer-deps as install command
+If Prisma or native packages fail later, approve them with 
+  npm install-scripts approve @prisma/engines bufferutil prisma unrs-resolver
 Teachers Edition: 
 git@github.com:bradtraversy/prostore.git
 Teachers Demo: 
