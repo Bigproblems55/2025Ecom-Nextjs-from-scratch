@@ -8,11 +8,11 @@ import { signInWithCredentials } from "@/lib/actions/user.actions";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
-const SignInButton = () =>{
+ function SignInButton (){
         const { pending } = useFormStatus();
 
         return (
-            <Button disabled={pending} 
+            <Button type='submit' disabled={pending} 
             className='w-full '
             variant='default'>
                 {pending ? 'Siging In...' : 'Sign In'}
