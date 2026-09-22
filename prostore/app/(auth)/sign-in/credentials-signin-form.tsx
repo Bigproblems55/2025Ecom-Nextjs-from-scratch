@@ -4,10 +4,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { signInWithCredentials } from "@/lib/actions/user.actions";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
+const SignInButton = () =>{
+        const { pending } = useFormStatus();
+
+        return (
+            <Button disabled={pending} 
+            className='w-full '
+            variant='default'>
+                {pending ? 'Siging In...' : 'Sign In'}
+            </Button>
+        )
+    }
 
 const CredentialsSignInForm = () => {
-    return <form>
+    const [data,action] = useActionState(signInWithCredentials,{
+        success: false,
+        message: ''
+    })
+    
+
+    return (
+        <form action={action}>
         <div className="space-y-6">
             <Label htmlFor='email'>Email</Label>
             <Input id='email' 
@@ -28,9 +49,14 @@ const CredentialsSignInForm = () => {
             defaultValue={signInDefaultValues.password}
             />
         </div>
-        <Button className='w-full' 
-            variant='default'
-        >Sign In</Button>
+        <div>
+            <SignInButton />
+        </div>
+        {data && !data.success && (
+            <div className="text-center text-destructive">
+                {data.message}
+            </div>
+        )}
         <div className="text-sm text-center text-muted-foreground">
             Don&apos;t have an account?{' '}
             <Link href='/sign-up'
@@ -39,7 +65,8 @@ const CredentialsSignInForm = () => {
             >Sign Up</Link>
         </div>
 
-    </form>;
+    </form>
+    );
 }
  
 export default CredentialsSignInForm;
