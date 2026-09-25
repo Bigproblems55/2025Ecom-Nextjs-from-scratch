@@ -1,10 +1,9 @@
 import Link from "next/link";
 import {auth } from "@/auth";
-import { signOutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, 
     DropdownMenuContent,
-    DropdownMenuItem,
+    DropdownMenuGroup,
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -25,7 +24,30 @@ const UserButton = async() => {
             
         );
     }
-    return <>User</>;
+    const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? 'U';
+    return <div className="flex gap-2 items-center">
+        <DropdownMenu>
+            <DropdownMenuTrigger render={
+                <Button variant='ghost' className='relative w-8 h-8 
+                    rounded-full ml-2 flex items-center justify-center bg-gray-200'>
+                        {firstInitial}
+                </Button>
+            }>
+
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuGroup>
+                    <DropdownMenuLabel>
+                        <div className="flex flex-col space-y-1">
+                            <div className="text-sm font-medium leading-none">
+                                {session.user?.name}
+                            </div>
+                        </div>
+                    </DropdownMenuLabel>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    </div>;
 }
  
 export default UserButton;
