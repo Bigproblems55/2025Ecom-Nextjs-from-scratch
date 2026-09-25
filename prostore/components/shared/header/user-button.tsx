@@ -1,8 +1,10 @@
 import Link from "next/link";
 import {auth } from "@/auth";
+import { signOutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, 
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuGroup,
     DropdownMenuLabel,
     DropdownMenuTrigger,
@@ -42,8 +44,19 @@ const UserButton = async() => {
                             <div className="text-sm font-medium leading-none">
                                 {session.user?.name}
                             </div>
+                            <div className="text-sm text-muted-foreground leading-none">
+                                {session.user?.email}
+                            </div>
                         </div>
                     </DropdownMenuLabel>
+                    <DropdownMenuItem className='p-0 mb-1'>
+                        <form action={signOutUser} className="w-full" >
+                            <Button nativeButton={true}onClick={signOutUser}className='w-full py-4 px-2 h-4 justify-start'
+                            variant='ghost' >
+                                Sign Out
+                            </Button>
+                        </form>
+                    </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
