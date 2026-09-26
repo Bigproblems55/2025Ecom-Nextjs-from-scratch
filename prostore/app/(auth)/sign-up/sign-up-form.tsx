@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signUpUser } from "@/lib/actions/user.actions";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation"; 
 
@@ -24,6 +24,7 @@ import { useSearchParams } from "next/navigation";
 const SignUpForm = () => {
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get('callbackUrl') || '/';
+    const [formValues, setFormValues] = useState(signUpDefaultValues);
     const [data,action] = useActionState(signUpUser,{
         success: false,
         message: ''
@@ -42,7 +43,8 @@ const SignUpForm = () => {
             type='text' 
             required 
             autoComplete='name' 
-            defaultValue={signUpDefaultValues.name}
+            value={formValues.name}
+            onChange={(event) => setFormValues({ ...formValues, name: event.target.value })}
             />
         </div>
         <div className="space-y-6">
@@ -52,7 +54,8 @@ const SignUpForm = () => {
             type='email' 
             required 
             autoComplete='email' 
-            defaultValue={signUpDefaultValues.email}
+            value={formValues.email}
+            onChange={(event) => setFormValues({ ...formValues, email: event.target.value })}
             />
         </div>
         <div className="space-y-6">
@@ -62,7 +65,8 @@ const SignUpForm = () => {
             type='password' 
             required 
             autoComplete='password' 
-            defaultValue={signUpDefaultValues.password}
+            value={formValues.password}
+            onChange={(event) => setFormValues({ ...formValues, password: event.target.value })}
             />
         </div>
         <div className="space-y-6">
@@ -72,14 +76,15 @@ const SignUpForm = () => {
             type='password' 
             required 
             autoComplete='confirmPassword' 
-            defaultValue={signUpDefaultValues.confirmPassword}
+            value={formValues.confirmPassword}
+            onChange={(event) => setFormValues({ ...formValues, confirmPassword: event.target.value })}
             />
         </div>
         <div>
             <SignUpButton />
         </div>
-        {data && !data.success && (
-            <div className="text-center text-destructive">
+        {!data.success && data.message && (
+            <div role="alert" aria-live="polite" className="mt-3 text-center text-sm text-destructive">
                 {data.message}
             </div>
         )}

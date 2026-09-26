@@ -7,6 +7,9 @@ import { redirect } from "next/navigation";
 import {hashSync} from 'bcrypt-ts-edge';
 import {prisma} from '@/db/prisma';
 import {signUpFormSchema} from "../validators";
+import { formatError } from "../utils";
+
+
 // Sign in the user with credentals
 
 export async function signInWithCredentials(prevState: unknown, 
@@ -68,7 +71,7 @@ export async function signUpUser(prevState: unknown, formData: FormData){
     if (isRedirectError(error)){
             throw error;
         }
-        return {success: false, message: 'Invalid email or password'};
+        return {success: false, message: formatError(error)};
       
   }
 }

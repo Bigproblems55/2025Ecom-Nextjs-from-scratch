@@ -16,7 +16,7 @@ const UserButton = async() => {
 
     if(!session){
         return(
-            <Button render={
+            <Button nativeButton={false} render={
                 <Link href='/sign-in'>
                 <UserIcon /> Sign In
             </Link>

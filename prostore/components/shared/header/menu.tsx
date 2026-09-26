@@ -35,7 +35,7 @@ const Menu = () => {
                 <SheetContent className="flex flex-col items-start">
                     <SheetTitle>Menu</SheetTitle>
                     <ModeToggle />
-                    <Button variant="ghost" size="lg" 
+                    <Button nativeButton={false} variant="ghost" size="lg" 
                     render={<Link href="/cart" aria-label="Shopping cart" />} >
                         <ShoppingCart /> Cart
                     </Button>
