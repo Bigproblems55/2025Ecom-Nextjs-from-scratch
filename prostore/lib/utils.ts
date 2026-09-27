@@ -25,19 +25,53 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 export function formatError(error: unknown): string {
-  if (error instanceof ZodError) {
+  try{
+    if (error instanceof ZodError) {
     return error.issues
       .map((issue) => `${issue.path.join('.') || 'Form'}: ${issue.message}`)
       .join('. ');
-  }
-
+  }else
   if (
     isRecord(error) &&
     error.name === 'PrismaClientKnownRequestError' &&
     error.code === 'P2002'
   ) {
-    return 'An account with this email already exists.';
-  }
+    // Handle prisma herror
+    const meta = isRecord(error.meta) ? error.meta : undefined;
+    const target = meta?.target;
+    const field =
+      Array.isArray(target) && typeof target[0] === 'string'
+        ? target[0]
+        : typeof target === 'string'
+          ? target
+          : 'Field';
+    return `${field.charAt(0).toUpperCase() + field.slice(1) } already exists`;
+  } else {
 
-  return error instanceof Error ? error.message : 'Unable to create your account.';
+    // Handle other errors
+   if (error instanceof Error) {
+      return error.message;
+    }
+
+    const message = isRecord(error) ? error.message : undefined;
+    if (typeof message === 'string') {
+      return message;
+    }
+
+    return JSON.stringify(error) ?? 'Unable to create your account.';
+   
+  
+  }
+  }catch(error: unknown){
+
+  if (error instanceof Error) {
+  return error.message;
+}
+
+if (isRecord(error) && typeof error.message === 'string') {
+  return error.message;
+}
+
+return 'Unable to create your account.';
+}
 }
