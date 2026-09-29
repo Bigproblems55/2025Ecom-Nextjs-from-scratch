@@ -9,6 +9,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import Link from 'next/link';
+import UserButton from './user-button';
+
 
 const Menu = () => {
   return (
@@ -23,13 +25,7 @@ const Menu = () => {
                     >
                     <ShoppingCart /> Cart
                 </Button>
-                <Button
-                nativeButton={false}
-                    size="lg"
-                    render={<Link href="/sign-in" aria-label="Sign In" />}
-                    >
-                    <UserIcon /> Sign In
-                </Button>
+                <UserButton />
         </nav>
         <nav className='md:hidden'>
             <Sheet>
@@ -39,17 +35,11 @@ const Menu = () => {
                 <SheetContent className="flex flex-col items-start">
                     <SheetTitle>Menu</SheetTitle>
                     <ModeToggle />
-                    <Button variant="ghost" size="lg" 
+                    <Button nativeButton={false} variant="ghost" size="lg" 
                     render={<Link href="/cart" aria-label="Shopping cart" />} >
                         <ShoppingCart /> Cart
                     </Button>
-                    <Button
-                nativeButton={false}
-                    size="lg"
-                    render={<Link href="/sign-in" aria-label="Sign In" />}
-                    >
-                    <UserIcon /> Sign In
-                </Button>
+                    <UserButton />
                     <SheetDescription></SheetDescription>    
                 </SheetContent>
             </Sheet>
