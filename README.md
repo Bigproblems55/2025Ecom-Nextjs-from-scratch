@@ -1,5 +1,6 @@
 This is how to build a eccomerce website from scratch with Next.js
 Deployed on -- 
+  https://2025-ecom-nextjs-from-scratch-r9j9ys7al-nick-lacaprias-projects.vercel.app/
   https://2025-ecom-nextjs-from-scratch-lu60on1wl-nick-lacaprias-projects.vercel.app/
 If deployment does not work try adding 
   npm install --legacy-peer-deps as install command
