@@ -3,6 +3,8 @@ import  Inter from "next/font/local";
 import "@/assets/styles/globals.css";
 import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants'
 import { ThemeProvider } from 'next-themes';
+import {Sonner} from "@/components/ui/sonner"; // TOaster is deprecated now uses sonner
+
 
 // const inter = Inter({subsets: ['latin']});
 
@@ -33,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{
           disableTransitionOnChange
         >
           {children}
+          <Sonner />
         </ThemeProvider>
       </body>
     </html>
