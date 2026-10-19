@@ -13,7 +13,7 @@ import { useSearchParams } from "next/navigation";
         const { pending } = useFormStatus();
 
         return (
-            <Button type='submit' disabled={pending} 
+            <Button aria-label="pending" type='submit' disabled={pending} 
             className='w-full '
             nativeButton={true}
             variant='default'>

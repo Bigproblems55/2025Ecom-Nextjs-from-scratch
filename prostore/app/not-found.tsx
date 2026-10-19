@@ -12,7 +12,7 @@ const NotFoundPage = () => {
       text-center shadow-md">
         <h1 className="text-3xl font-bold mb-4">Not Found</h1>
         <p className="text-destructive">Could Not find requested resource</p>
-        <Button nativeButton={false} onClick={() => (window.location.href = '/')} 
+        <Button aria-label="Home"nativeButton={false} onClick={() => (window.location.href = '/')} 
         className="mt-4 ml-2">
           Back to Home
         </Button>

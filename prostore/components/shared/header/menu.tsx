@@ -17,7 +17,7 @@ const Menu = () => {
     <div className="flex justify-end gap-3 ">
         <nav className="hidden md:flex w-full max-w-xs gap-1"> 
             <ModeToggle />
-                <Button
+                <Button aria-label="Cart"
                 nativeButton={false}
                     variant="ghost"
                     size="lg"
@@ -35,7 +35,7 @@ const Menu = () => {
                 <SheetContent className="flex flex-col items-start">
                     <SheetTitle>Menu</SheetTitle>
                     <ModeToggle />
-                    <Button nativeButton={false} variant="ghost" size="lg" 
+                    <Button aria-label="Cart" nativeButton={false} variant="ghost" size="lg" 
                     render={<Link href="/cart" aria-label="Shopping cart" />} >
                         <ShoppingCart /> Cart
                     </Button>

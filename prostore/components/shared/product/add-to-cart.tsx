@@ -51,18 +51,18 @@ const AddToCart = ({ cart, item }: {cart?: Cart, item: CartItem }) => {
     const existItem = cart && cart.items.find((x) => x.productId === item.productId);
     return existItem ? (
         <div>
-            <Button type='button' variant='outline' onClick={handleRemoveFromCart}>
+            <Button aria-label={isPending ? 'Spinning Animation Pending' : `Minus Quantity ${item.qty}`} type='button' variant='outline' onClick={handleRemoveFromCart}>
                 {isPending ? (<Loader className='w-4 h-4 animate-spin' />):
                 (<Minus className='h-4 w-4' />)}
             </Button>
             <span className='px-2'>{existItem.qty}</span>
-            <Button type='button' variant='outline' onClick={handleAddToCart}>
+            <Button aria-label={isPending ? 'Spinning Animation Pending' : `Plus Quantity ${item.qty} `} type='button' variant='outline' onClick={handleAddToCart}>
                 {isPending ? (<Loader className='w-4 h-4 animate-spin' />):
                 (<Plus className='h-4 w-4' />)}
             </Button>
         </div>
     ): (
-    <Button className="w-full" onClick={handleAddToCart}> 
+    <Button aria-label={isPending ? 'Spinning Animation Pending' : 'Plus Add to Cart'}className="w-full" onClick={handleAddToCart}> 
     {isPending ? (<Loader className='w-4 h-4 animate-spin' />):
                 (<Plus className='h-4 w-4' />)}
      Add to Cart</Button>);
