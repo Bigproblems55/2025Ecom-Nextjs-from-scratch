@@ -12,3 +12,10 @@ export const signUpDefaultValues  = {
     password:'',
     confirmPassword: ''
 };
+export const shippingAddressDefaultValues = {
+    fullName: 'John Willy',
+    streetAddress: '124 Main St',
+    city: 'Hesperia',
+    postalCode: '23423',
+    country: 'USA'
+}

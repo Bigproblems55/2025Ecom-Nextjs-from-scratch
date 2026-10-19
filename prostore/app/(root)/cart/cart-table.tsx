@@ -1,6 +1,6 @@
 'use client'
 import {Cart} from "@/types";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
@@ -10,8 +10,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from '@/components/ui/card';
+import {formatCurrency} from '@/lib/utils';
+
+
 const CartTable = ({cart}:{cart?: Cart}) => {
-    const router = useRouter;
+    const router = useRouter();
     const [isPending,startTransition] = useTransition();
 
     return <>
@@ -57,6 +61,24 @@ const CartTable = ({cart}:{cart?: Cart}) => {
                                         }
                                         </Button>
                                         <span>{item.qty}</span>
+                                        <Button disabled={isPending} variant='outline' type='button'
+                                            onClick={ () => startTransition(async ()=>{
+                                                const res = await addItemToCart(item);
+                                                if(!res.success){
+                                                    toast.error(res.message);
+                                                }
+                                            })}
+                                        >
+                                            {isPending ? (
+                                                <Loader className="w-4 h-4 animate-spin"/>
+                                            ) : (
+                                                <Plus className="w-4 h-4" />
+                                            )
+                                        }
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        ${item.price}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -64,6 +86,30 @@ const CartTable = ({cart}:{cart?: Cart}) => {
 
                     </Table>
                 </div>
+                <Card>
+                    <CardContent className="p-4 gap-4">
+                        <div className="flex flex-col items-center text-center pb-3 text-xl">
+                            Subtotal ({cart.items.reduce((a,c) => a+c.qty, 0)})
+                            <p>
+                                <span className="font-bold">
+                                {formatCurrency(cart.itemsPrice)}
+                            </span>
+                            </p>
+                        </div>
+                        <Button className="w-full" disabled={isPending} onClick={()=> 
+                            startTransition(() => router.push ('/shipping-address'))}>
+                                {
+                                    isPending ? (
+                                        <Loader className="w-4 h-4 animate-spin" />
+                                    ): (
+                                        <ArrowRight className="w-4 h-4" />
+                                    )
+                                }{' '}
+                                Proceed to Checkout
+                            </Button>
+                        
+                    </CardContent>
+                </Card>
             </div>
         )}
     </> ;
