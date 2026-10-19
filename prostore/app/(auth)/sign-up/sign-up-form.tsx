@@ -90,10 +90,10 @@ const SignUpForm = () => {
         )}
         <div className="text-sm text-center text-muted-foreground">
             Already have an account?{' '}
-            <Link href='/sign-up'
+            <Link href='/sign-in'
                 target='_self'
                 className='link'
-            >Sign Up</Link>
+            >Login</Link>
         </div>
 
     </form>
