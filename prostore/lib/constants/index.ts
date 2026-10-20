@@ -14,9 +14,9 @@ export const signUpDefaultValues  = {
 };
 // make sure this is empty strings for production deploy
 export const shippingAddressDefaultValues = {
-    fullName: 'John Willy',
-    streetAddress: '124 Main St',
-    city: 'Hesperia',
-    postalCode: '23423',
-    country: 'USA'
+    fullName: '',
+    streetAddress: '',
+    city: '',
+    postalCode: '',
+    country: ''
 }
