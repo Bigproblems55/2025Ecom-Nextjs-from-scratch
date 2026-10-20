@@ -12,11 +12,12 @@ export const metadata: Metadata = {
 }
 
 const ShippingAddressPage = async() =>{
-    const cart = await getMyCart();
-    if(!cart || cart.items.length === 0 ) redirect('/cart');
     const session = await auth();
     const userId = session?.user?.id;
-    if(!userId) throw new Error('No user ID');
+    if (!userId) redirect('/sign-in?callbackUrl=/shipping-address');
+
+    const cart = await getMyCart();
+    if(!cart || cart.items.length === 0 ) redirect('/cart');
     const user = await getUserById(userId);
 
     return <>
