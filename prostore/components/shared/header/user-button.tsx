@@ -16,7 +16,7 @@ const UserButton = async() => {
 
     if(!session){
         return(
-            <Button nativeButton={false} render={
+            <Button aria-label="Sign In"nativeButton={false} render={
                 <Link href='/sign-in'>
                 <UserIcon /> Sign In
             </Link>
@@ -30,7 +30,7 @@ const UserButton = async() => {
     return <div className="flex gap-2 items-center">
         <DropdownMenu>
             <DropdownMenuTrigger render={
-                <Button variant='ghost' className='relative w-8 h-8 
+                <Button aria-label={`${firstInitial}`} variant='ghost' className='relative w-8 h-8 
                     rounded-full ml-2 flex items-center justify-center bg-gray-200'>
                         {firstInitial}
                 </Button>
@@ -51,8 +51,13 @@ const UserButton = async() => {
                     </DropdownMenuLabel>
                     <DropdownMenuItem className='p-0 mb-1'>
                         <form action={signOutUser} className="w-full" >
-                            <Button nativeButton={true}onClick={signOutUser}className='w-full py-4 px-2 h-4 justify-start'
-                            variant='ghost' >
+                            <Button
+                                aria-label="Sign Out"
+                                nativeButton={true}
+                                type="submit"
+                                className="w-full py-4 px-2 h-4 justify-start"
+                                variant="ghost"
+                            >
                                 Sign Out
                             </Button>
                         </form>

@@ -2,7 +2,16 @@
 import {Button} from '@/components/ui/button';
 import {APP_NAME} from '@/lib/constants';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 const NotFoundPage = () => {
+  const router = useRouter();
+  useEffect(() =>{
+    const timeout = window.setTimeout(() =>{
+      router.replace("/");
+    },5000);
+    return () => window.clearTimeout(timeout);
+  },[router]);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Image src="/images/logo.svg" width={48} height={48} 
@@ -12,7 +21,7 @@ const NotFoundPage = () => {
       text-center shadow-md">
         <h1 className="text-3xl font-bold mb-4">Not Found</h1>
         <p className="text-destructive">Could Not find requested resource</p>
-        <Button nativeButton={false} onClick={() => (window.location.href = '/')} 
+        <Button nativeButton={true} onClick={() => router.push('/')} 
         className="mt-4 ml-2">
           Back to Home
         </Button>
