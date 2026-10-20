@@ -12,7 +12,21 @@ const authConfig = {
   },
   providers: [],
   callbacks: {
-    authorized({ request }) {
+    authorized({ request, auth }) {
+      // Array of regex patterns of paths we want to protect
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+      ];
+      // Get pathname from the req url object
+      const {pathname} = request.nextUrl;
+      // Check if user is not authenticated and accessing a protected path
+      if (!auth && protectedPaths.some((path) => path.test(pathname))) return false;
       if (request.cookies.has("sessionCartId")) {
         return true;
       }
