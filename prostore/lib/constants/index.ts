@@ -12,6 +12,7 @@ export const signUpDefaultValues  = {
     password:'',
     confirmPassword: ''
 };
+// make sure this is empty strings for production deploy
 export const shippingAddressDefaultValues = {
     fullName: 'John Willy',
     streetAddress: '124 Main St',
