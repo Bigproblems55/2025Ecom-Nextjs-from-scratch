@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { getUserById } from "@/lib/actions/user.actions";
 import PaymentMethodForm from "./payment-method-form";
 import CheckoutSteps from "@/components/shared/checkout-steps";
+import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
 export const metadata:Metadata = {
     title: 'Select Payment Method',
 }
@@ -21,7 +22,11 @@ const PaymentMethodPage = async() => {
 
     return <>
     <CheckoutSteps current={2}/>
-        <PaymentMethodForm preferredPaymentMethod={user.paymentMethod} />
+        <PaymentMethodForm
+            preferredPaymentMethod={user.paymentMethod}
+            paymentMethods={PAYMENT_METHODS}
+            defaultPaymentMethod={DEFAULT_PAYMENT_METHOD}
+        />
     </>;
 }
  

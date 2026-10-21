@@ -1,28 +1,41 @@
 'use client';
 import { useTransition } from "react";
-import { paymentMethodSchema } from "@/lib/validators"; 
+import { createPaymentMethodSchema, paymentMethodSchema } from "@/lib/validators"; 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
 import z from "zod";
 import {
   Field,
+  FieldContent,
+  FieldDescription,
   FieldError,
   FieldLabel,
+  FieldTitle,
 } from "@/components/ui/field";
 import {Controller, useForm} from "react-hook-form";
 import { ArrowRight, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup,RadioGroupItem } from "@/components/ui/radio-group";
-
+import { PaypalIcon } from "@/components/icons/il-paypal";
+import { FaBitcoin } from "react-icons/fa6";
+import { VisaIcon } from "@/components/icons/logos-visa";
+import { CreditCardIcon } from "@/components/icons/noto-credit-card";
+import { CcDiscoverIcon } from "@/components/icons/fa7-brands-cc-discover";
+import { MaestroIcon } from "@/components/icons/logos-maestro";
 const PaymentMethodForm = ({
-    preferredPaymentMethod} :{
+    preferredPaymentMethod,
+    paymentMethods,
+    defaultPaymentMethod,
+}: {
         preferredPaymentMethod: string | null;
+        paymentMethods: string[];
+        defaultPaymentMethod: string;
     }) =>{
 
+        const formSchema = createPaymentMethodSchema(paymentMethods);
         const form = useForm<z.infer<typeof paymentMethodSchema>>({
-            resolver: zodResolver(paymentMethodSchema),
+            resolver: zodResolver(formSchema),
             defaultValues:{
-                type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD
+                type: preferredPaymentMethod || defaultPaymentMethod
             }
         });
         const [isPending] = useTransition();
@@ -43,24 +56,54 @@ const PaymentMethodForm = ({
                 control={form.control}
                 name="type"
                 render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Type</FieldLabel>
+                    <Field className="gap-3" data-invalid={fieldState.invalid}>
+                    <FieldTitle id={`${field.name}-label`}>Choose a payment method</FieldTitle>
                     <RadioGroup
                         value={field.value}
                         onValueChange={field.onChange}
-                        aria-labelledby={field.name}
-                        className="flex flex-col gap-2"
+                        aria-labelledby={`${field.name}-label`}
+                        className="flex max-w-sm flex-col gap-2"
+                        
                     >
-                        {PAYMENT_METHODS.map((paymentMethod) => {
+                        {paymentMethods.map((paymentMethod) => {
                             const id = `payment-method-${paymentMethod}`;
 
                             return (
-                                <div key={paymentMethod} className="flex items-center gap-3">
-                                    <RadioGroupItem id={id} value={paymentMethod} />
-                                    <FieldLabel htmlFor={id} className="font-normal">
-                                        {paymentMethod}
-                                    </FieldLabel>
-                                </div>
+                                <FieldLabel
+                                    key={paymentMethod}
+                                    className="w-full cursor-pointer normal-case has-[>[data-slot=field]]:rounded-full has-[>[data-slot=field]]:has-focus-visible:ring-2 has-[>[data-slot=field]]:has-focus-visible:ring-ring/30"
+                                >
+                                    <Field
+                                        orientation="horizontal"
+                                        className="w-full items-center rounded-full border border-input p-3"
+                                    >
+                                        <FieldContent className="flex flex-row">
+                                            <FieldTitle className="normal-case">
+                                                {paymentMethod}
+                                            </FieldTitle>
+                                            <FieldDescription>
+                                                {
+                                                    paymentMethod === 'Paypal'?
+                                                        <PaypalIcon className="h-19 w-19 fill-current text-blue-600" />: ''
+                                                }
+                                                {
+                                                    paymentMethod === 'Stripe' ?
+                                                        <p className="flex flex-row">
+                                                        <VisaIcon className="pr-2 h-19 w-19 fill-current text-blue-700" />
+                                                        <CcDiscoverIcon className="h-18 w-18 fill-current text-white-200 pr-2"  />
+                                                        <MaestroIcon className="h-19 w-19 fill-current text-white-200  pr-2" /> 
+                                                        </p>
+                                                        : ''
+                                                }
+                                                {
+                                                    paymentMethod === 'Cryptocurrency' ?
+                                                    <FaBitcoin className="h-16 w-16 text-[#F7931A]" /> : ''
+                                                }
+                                            </FieldDescription>
+                                        </FieldContent>
+                                        <RadioGroupItem id={id} value={paymentMethod} />
+                                    </Field>
+                                </FieldLabel>
                             );
                         })}
                     </RadioGroup>

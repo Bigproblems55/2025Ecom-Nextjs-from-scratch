@@ -8,7 +8,7 @@ import {prisma} from '@/db/prisma';
 import {signUpFormSchema} from "../validators";
 import { formatError } from "../utils";
 import { ShippingAddress } from "@/types";
-import { success } from "zod";
+import { z } from "zod";
 import { paymentMethodSchema } from "../validators";
 // Sign in the user with credentals
 

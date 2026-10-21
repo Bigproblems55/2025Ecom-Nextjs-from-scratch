@@ -72,9 +72,10 @@ export const shippingAddressSchema = z.object({
 })
 
 // Schema for Payment Method
-export const paymentMethodSchema = z.object ({
+export const createPaymentMethodSchema = (paymentMethods: readonly string[]) => z.object ({
     type: z.string().min(1, 'Payment Method is Required')
-}).refine((data) => PAYMENT_METHODS.includes(data.type),{
+}).refine((data) => paymentMethods.includes(data.type),{
     path: ['type'],
     message: 'Invalid payment method'
 });
+export const paymentMethodSchema = createPaymentMethodSchema(PAYMENT_METHODS);
