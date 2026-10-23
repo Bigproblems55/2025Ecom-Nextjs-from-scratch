@@ -1,4 +1,5 @@
 'use client';
+import { toast } from "sonner";
 import { useTransition } from "react";
 import { createPaymentMethodSchema, paymentMethodSchema } from "@/lib/validators"; 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,9 +19,10 @@ import { RadioGroup,RadioGroupItem } from "@/components/ui/radio-group";
 import { PaypalIcon } from "@/components/icons/il-paypal";
 import { FaBitcoin } from "react-icons/fa6";
 import { VisaIcon } from "@/components/icons/logos-visa";
-import { CreditCardIcon } from "@/components/icons/noto-credit-card";
 import { CcDiscoverIcon } from "@/components/icons/fa7-brands-cc-discover";
 import { MaestroIcon } from "@/components/icons/logos-maestro";
+import { updateUserPaymentMethod } from "@/lib/actions/user.actions";
+import { useRouter } from 'next/navigation';
 const PaymentMethodForm = ({
     preferredPaymentMethod,
     paymentMethods,
@@ -32,15 +34,34 @@ const PaymentMethodForm = ({
     }) =>{
 
         const formSchema = createPaymentMethodSchema(paymentMethods);
+        const initialPaymentMethod =
+            paymentMethods.find(
+                (method) => method.toLowerCase() === preferredPaymentMethod?.toLowerCase()
+            ) ??
+            paymentMethods.find(
+                (method) => method.toLowerCase() === defaultPaymentMethod.toLowerCase()
+            ) ??
+            paymentMethods[0] ??
+            "";
         const form = useForm<z.infer<typeof paymentMethodSchema>>({
             resolver: zodResolver(formSchema),
             defaultValues:{
-                type: preferredPaymentMethod || defaultPaymentMethod
+                type: initialPaymentMethod
             }
         });
-        const [isPending] = useTransition();
-        const  onSubmit = () =>{
-            return;
+        const router = useRouter();
+        const [isPending,startTransition] = useTransition();
+        const  onSubmit = async (values: z.infer<typeof paymentMethodSchema>) =>{
+            
+            startTransition(async () =>{
+                const res = await updateUserPaymentMethod(values);
+                if(!res.success){
+                    toast.error(res.message);
+                    return;
+                }
+                toast.success(res.message);
+                router.push('/place-order');
+            })
         }
 
     return <>
@@ -88,11 +109,11 @@ const PaymentMethodForm = ({
                                                 }
                                                 {
                                                     paymentMethod === 'Stripe' ?
-                                                        <p className="flex flex-row">
+                                                        <span className="flex flex-row">
                                                         <VisaIcon className="pr-2 h-19 w-19 fill-current text-blue-700" />
                                                         <CcDiscoverIcon className="h-18 w-18 fill-current text-white-200 pr-2"  />
                                                         <MaestroIcon className="h-19 w-19 fill-current text-white-200  pr-2" /> 
-                                                        </p>
+                                                        </span>
                                                         : ''
                                                 }
                                                 {
@@ -101,7 +122,7 @@ const PaymentMethodForm = ({
                                                 }
                                             </FieldDescription>
                                         </FieldContent>
-                                        <RadioGroupItem id={id} value={paymentMethod} />
+                                        <RadioGroupItem id={id} value={paymentMethod}  />
                                     </Field>
                                 </FieldLabel>
                             );
